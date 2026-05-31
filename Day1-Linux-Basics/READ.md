@@ -1,103 +1,93 @@
-# Day 01 — Getting Comfortable with Linux
+# Day 01 — Linux Basics & Terminal
 
-So today I started properly getting into Linux. I've heard the name a thousand
-times but never really sat down to understand what it actually is. Turns out
-there's a lot more to it than just "the thing programmers use."
-
----
-
-## What even is Linux?
-
-Linux isn't really an operating system by itself — it's a **kernel**. Think of
-the kernel as the core engine that talks to your hardware. What we call "Linux"
-(like Ubuntu or Fedora) is actually the kernel bundled together with a bunch of
-tools, a package manager, and sometimes a desktop environment.
-
-Linus Torvalds wrote the kernel back in 1991 as a hobby project. That hobby
-project now runs most of the internet, basically every Android phone, and almost
-every server on the planet. Not bad.
+First day properly sitting down with Linux. I've used the terminal before but
+mostly copy-pasting commands I didn't fully understand. Today was about actually
+knowing what I'm typing and why.
 
 ---
 
-## The distro situation
+## What I learned
 
-One thing that confused me at first — why are there so many versions of Linux?
-They're called **distributions** (distros), and each one is basically a
-different opinion on how Linux should be packaged and used.
+### Linux isn't an OS — it's a kernel
+The kernel is the core that talks to hardware. What we call Linux (Ubuntu,
+Fedora, etc.) is the kernel + tools + package manager bundled together. Linus
+Torvalds wrote it in 1991 as a hobby project. That hobby now runs most of the
+internet.
 
-Here's what I figured out about the main ones:
+### Distros — why there are so many
+Each distro is basically a different opinion on how Linux should be packaged.
+- **Ubuntu** — beginner friendly, huge community
+- **Fedora** — more cutting edge, good for developers
+- **Arch** — you build it yourself, total control
+- **Kali** — pre-loaded security tools
+- **CentOS** — what you find on enterprise servers
 
-- **Ubuntu** — most beginner-friendly, huge community, good docs everywhere
-- **Fedora** — slightly more cutting-edge, popular with developers
-- **Arch** — you build it yourself from scratch, total control, steep learning curve
-- **Kali** — comes pre-loaded with security/hacking tools
-- **CentOS / RHEL** — what you'll find on enterprise servers at companies
-
-For now I'm sticking with Ubuntu. No reason to make this harder than it needs to be.
+I'm on a Mac so I'm using KodeKloud's browser terminal for actual Linux practice.
 
 ---
 
-## Terminal stuff I practiced today
-
-This is the part that actually took some time. The terminal feels weird at first
-because there's no undo button and everything is very literal. But once it
-clicks, it's genuinely faster than clicking around in a file manager.
+## Commands I practiced
 
 ```bash
-# figuring out where I am
-pwd
+whoami          # prints your username
+hostname        # machine name
+pwd             # where you are right now
+df -h           # disk usage
+df -h | grep disk3s5   # filter to just the main drive
+free -h         # RAM — Linux only, Mac uses:
+top -l 1 | grep PhysMem
 
-# seeing what's in a folder (-l for details, -a to show hidden files)
-ls -la
-
-# moving around
-cd /home/user/Documents
-cd ..   # go back one level
-cd ~    # go back to home directory
-
-# creating stuff
-touch notes.txt        # creates an empty file
-mkdir my-project       # creates a folder
-
-# copying, moving, deleting
-cp notes.txt backup.txt
-mv backup.txt my-project/
-rm my-project/backup.txt   # no recycle bin, it's just gone
-
-# reading files
-cat notes.txt          # dumps the whole thing
-less notes.txt         # lets you scroll through it
-head -n 5 notes.txt    # first 5 lines
-tail -n 5 notes.txt    # last 5 lines
+ls -la          # list everything including hidden files
+mkdir -p day01/{notes,scripts,practice}   # create nested folders in one shot
+touch file.txt  # create empty file
+echo "text" > file.txt    # write to file (overwrites)
+echo "text" >> file.txt   # append to file
+cat file.txt    # read file
+cp file.txt folder/       # copy
+mv file.txt newname.txt   # rename or move
+rm file.txt     # delete — no undo
+find day01 -type f        # list all files recursively
 ```
-
-The one that got me was `rm`. There's no "are you sure?" — it just deletes.
-Lesson learned before I made a mistake, thankfully.
 
 ---
 
-## Permissions — this one took a while
-
-When you do `ls -l` you see something like `-rwxr-xr-x` next to every file.
-That's the permission string and it looks scary but it's actually pretty logical
-once you break it down.
-
-rwx  r-x  r-x
-↑   ↑    ↑    ↑
-│   │    │    └─ everyone else (others)
-│   │    └────── people in the same group
-│   └─────────── the file's owner
-└─────────────── file type (- = file, d = directory)
-
-Each `rwx` means read, write, execute. A `-` means that permission is off.
-
-To change permissions you use `chmod`. I practiced with:
+## Permissions
 
 ```bash
-chmod 755 script.sh   # owner can do everything, others can read and run
-chmod 644 notes.txt   # owner can read/write, others can only read
+chmod 600 secret.txt    # only owner can read/write
+chmod 755 script.sh     # owner full, everyone else read/execute
+
+ls -l secret.txt
+# -rw-------  (600)
+
+ls -l script.sh
+# -rwxr-xr-x  (755)
 ```
 
-The numbers are actually just a shorthand — each digit is a combination of
-read(4) + write(2) + execute(1). So 7 = 4+2+1 = full access. Once I saw that
-it made way more sense.
+The numbers are read(4) + write(2) + execute(1) added together per group.
+So 7 = full access, 6 = read/write, 5 = read/execute, 4 = read only.
+
+---
+
+## Boss challenge output
+
+Built a system report using only terminal commands — no text editor:
+
+```
+anandupradeep
+Anandus-MacBook-Pro.local
+Mon Jun  1 03:56:39 IST 2026
+/dev/disk3s5     228Gi   123Gi    82Gi    61%    1.5M  859M    0%   /System/Volumes/Data
+PhysMem: 7550M used (1295M wired, 2998M compressor), 80M unused.
+```
+
+---
+
+## What tripped me up
+
+- `free -h` doesn't exist on Mac — use `top -l 1 | grep PhysMem` instead
+- `df -h` on Mac shows a lot of internal Apple volumes — filter with `grep` to
+  get only what you need
+- Mac runs BSD Unix under the hood, not Linux — most commands work but some
+  don't
+
