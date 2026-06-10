@@ -1,0 +1,29 @@
+==========================================
+  Log Analysis Report
+  File: /tmp/app.log
+  Generated: 2026-06-10 23:24:15
+==========================================
+
+[Summary]
+Total lines    :       15
+INFO count     : 7
+WARN count     : 2
+ERROR count    : 5
+FATAL count    : 1
+Time range     : 10:00:01 to 10:04:01
+
+[Error Timeline]
+10:01:30  Database connection lost 
+10:01:31  Failed to process request /api/users 
+10:01:32  Failed to process request /api/orders 
+10:02:30  Permission denied for user bob on /admin 
+10:04:01  Service crashed 
+
+[Fatal Events]
+10:04:00  Out of memory — killing process 
+
+[Top Issues]
+   2 Failed to process request 
+   1 Service crashed
+   1 Permission denied for user bob on /admin
+   1 Database connection lost

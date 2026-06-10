@@ -1,0 +1,15 @@
+2026-06-09 10:00:01 INFO  Server started on port 8080
+2026-06-09 10:00:05 INFO  Database connected successfully
+2026-06-09 10:01:00 INFO  User anand logged in from 192.168.1.10
+2026-06-09 10:01:30 ERROR Database connection lost
+2026-06-09 10:01:31 ERROR Failed to process request /api/users
+2026-06-09 10:01:32 ERROR Failed to process request /api/orders
+2026-06-09 10:01:33 WARN  Retrying database connection attempt 1
+2026-06-09 10:01:38 WARN  Retrying database connection attempt 2
+2026-06-09 10:01:43 INFO  Database reconnected successfully
+2026-06-09 10:02:00 INFO  User bob logged in from 192.168.1.20
+2026-06-09 10:02:30 ERROR Permission denied for user bob on /admin
+2026-06-09 10:03:00 INFO  User anand accessed /api/users
+2026-06-09 10:03:01 INFO  User anand accessed /api/orders
+2026-06-09 10:04:00 FATAL Out of memory — killing process
+2026-06-09 10:04:01 ERROR Service crashed
