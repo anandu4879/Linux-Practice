@@ -13,7 +13,7 @@ Learn the fundamentals of storage in Linux/macOS:
 
 # Core Concepts
 
-## 1. Disk
+##1. Disk
 
 A disk is the physical storage device.
 
