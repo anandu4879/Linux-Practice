@@ -5,9 +5,9 @@ time machine — they show exactly what happened, when, and why.
 
 ---
 
-## Logs Are Everywhere 
+## Logs Are Everywhere
 
-Linux logs everything: who logged in, when services crashed, what 
+Linux logs everything:  who logged in, when services crashed, what 
 commands ran, security events, everything.
 
 ```
